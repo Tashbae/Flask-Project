@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Faculty Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { background: #f4f6f9; }
+    .navbar { background-color: #004080; }
+    .navbar-brand, .nav-link, .text-white { color: white !important; }
+    .card { margin: 15px 0; }
+    th, td { font-size: 14px; }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg px-4">
+    <a class="navbar-brand" href="#">KCA Faculty Dashboard</a>
+    <div class="ms-auto">
+      <a class="nav-link text-white" href="{{ url_for('logout') }}">Logout</a>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    <form class="row mb-3" method="get">
+      <div class="col-md-4">
+        <label>Filter by GPA Range:</label>
+        <select name="gpa" class="form-select">
+          <option value="">All</option>
+          <option value="0-2">0 - 2.0</option>
+          <option value="2-3">2.0 - 3.0</option>
+          <option value="3-4">3.0 - 4.0</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label>Filter by Unit:</label>
+        <select name="unit" class="form-select">
+          <option>All</option>
+          {% for u in units %}
+            <option>{{ u }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-4 d-flex align-items-end">
+        <button class="btn btn-primary">Apply Filters</button>
+      </div>
+    </form>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover table-striped">
+        <thead class="table-dark">
+          <tr>
+            {% for col in columns %}
+              <th>{{ col }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in table %}
+            <tr>
+              {% for col in columns %}
+                <td>{{ row[col] }}</td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-md-6">
+        <div class="card shadow-sm">
+          <div class="card-header bg-primary text-white">Unit Average Scores</div>
+          <div class="card-body">
+            <canvas id="unitChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card shadow-sm">
+          <div class="card-header bg-success text-white">Grade Distribution (Selected Units)</div>
+          <div class="card-body">
+            <canvas id="gradeChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const unitData = {{ unit_averages|tojson }};
+    const gradeDist = {{ grade_distribution|tojson }};
+    const unitLabels = Object.keys(unitData);
+    const gradeLabels = ['A', 'B', 'C', 'D', 'F'];
+
+    const unitChart = new Chart(document.getElementById('unitChart'), {
+      type: 'bar',
+      data: {
+        labels: unitLabels,
+        datasets: [{
+          label: 'Average Score',
+          data: Object.values(unitData),
+          backgroundColor: '#007bff'
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } }
+      }
+    });
+
+    const stackedGrades = gradeLabels.map(grade => {
+      return {
+        label: grade,
+        data: unitLabels.map(u => gradeDist[u]?.[grade] || 0),
+        stack: 'grades'
+      };
+    });
+
+    new Chart(document.getElementById('gradeChart'), {
+      type: 'bar',
+      data: {
+        labels: unitLabels,
+        datasets: stackedGrades
+      },
+      options: {
+        responsive: true,
+        plugins: { title: { display: true, text: 'Grade Distribution' } },
+        scales: { x: { stacked: true }, y: { stacked: true } }
+      }
+    });
+  </script>
+</body>
+</html>

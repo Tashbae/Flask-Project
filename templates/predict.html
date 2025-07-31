@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Performance Prediction - KCA University</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .navbar {
+      background-color: #004080;
+    }
+    .navbar-brand, .nav-link, .navbar-text {
+      color: white !important;
+    }
+    .container {
+      margin-top: 30px;
+    }
+    h2 {
+      color: #004080;
+    }
+    table {
+      background-color: white;
+    }
+    pre {
+      background-color: #e9ecef;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">KCA University</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('lecturer_dashboard') }}">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link active" href="{{ url_for('predict') }}">Predict</a></li>
+      </ul>
+      <span class="navbar-text">
+        <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+      </span>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <h2>Performance Prediction</h2>
+
+  <form method="POST" enctype="multipart/form-data" class="mb-4">
+    <div class="mb-3">
+      <label for="file" class="form-label">Upload CSV File:</label>
+      <input type="file" name="file" class="form-control" accept=".csv" required>
+    </div>
+    <div class="mb-3">
+      <label for="model" class="form-label">Choose Model:</label>
+      <select name="model" class="form-select">
+        <option value="logistic">Logistic Regression</option>
+        <option value="tree">Decision Tree</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Predict</button>
+  </form>
+
+  {% if report %}
+    <h3>Classification Report</h3>
+    <pre>{{ report }}</pre>
+  {% endif %}
+
+  {% if data %}
+    <h3>Predictions</h3>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead class="table-primary">
+          <tr>
+            {% for col in data[0].keys() %}
+              <th>{{ col }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in data %}
+            <tr>
+              {% for val in row.values() %}
+                <td class="
+                  {% if val == 'Pass' %}
+                    bg-success
+                  {% elif val == 'Fail' %}
+                    bg-danger
+                  {% elif val == 'Borderline' %}
+                    bg-warning
+                  {% endif %}
+                ">
+                  {{ val }}
+                </td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+
+</body>
+</html>

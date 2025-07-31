@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lecturer Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body { background-color: #fff0f5; }
+    .navbar { background-color: #6a1b9a; }
+    .navbar a, .navbar-brand, .nav-link { color: white !important; }
+    h2 { color: #6a1b9a; margin-top: 20px; }
+    .table thead { background-color: #8e24aa; color: white; }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="#">Lecturer Dashboard</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a class="nav-link" href="/lecturer">Dashboard</a></li>
+
+        {% if session['role'] == 'lecturer' %}
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('predict') }}">Predict</a></li>
+        {% endif %}
+        <!-- <li class="nav-item"><a class="nav-link" href="{{ url_for('upload_results') }}">Upload Results</a></li> -->
+        <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    <h2>Welcome, {{ lecturer_name }}</h2>
+    <p><strong>Your Units:</strong> {{ units | join(', ') }}</p>
+
+    <h3>Uploaded Results</h3>
+    <table class="table table-hover table-bordered mt-3">
+      <thead>
+        <tr>
+          <th>Reg No</th>
+          <th>Name</th>
+          <th>Unit</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in results %}
+        <tr>
+          <td>{{ row.reg_no }}</td>
+          <td>{{ row.name }}</td>
+          <td>{{ row.unit }}</td>
+          <td>{{ row.score }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+      <h4 class="mt-5">Average Scores Per Unit</h4>
+      <canvas id="unitChart" width="600" height="300"></canvas>
+      <button class="btn btn-success my-2" onclick="downloadChart()">Download Chart as Image</button>
+
+      <h3 class="mt-5">Score Trends for Your Units</h3>
+      <canvas id="lineChart" width="600" height="300"></canvas>
+      <button class="btn btn-success my-2" onclick="downloadLineChart()">Download Chart as Image</button>
+
+      <h3 class="mt-5">Grade Distribution</h3>
+      <canvas id="pieChart" width="200" height="200"></canvas>
+      <button class="btn btn-success my-2" onclick="downloadPieChart()">Download Chart as Image</button>
+
+
+      <!-- Chart.js -->
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+      <script>
+        // Bar Chart – Average Scores
+        const ctx = document.getElementById('unitChart').getContext('2d');
+        const unitChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: {{ chart_labels | tojson }},
+            datasets: [{
+              label: 'Average Score',
+              data: {{ chart_scores | tojson | default('[]', true) }},
+              backgroundColor: 'rgba(75, 192, 192, 0.6)',
+              borderColor: 'rgba(75, 192, 192, 1)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 100
+              }
+            }
+          }
+        });
+
+        // Line Chart – Score Trends
+        const lineCtx = document.getElementById('lineChart').getContext('2d');
+        const lineChartData = {{ line_chart_data | tojson }};
+        const maxLen = Math.max(...Object.values(lineChartData).map(arr => arr.length));
+        const lineChartLabels = Array.from({ length: maxLen }, (_, i) => i + 1);
+        const lineChartDatasets = Object.entries(lineChartData).map(([unit, scores], index) => ({
+          label: unit,
+          data: scores,
+          borderColor: `hsl(${index * 60}, 70%, 50%)`,
+          fill: false,
+          tension: 0.3
+        }));
+        const lineChart = new Chart(lineCtx, {
+          type: 'line',
+          data: {
+            labels: lineChartLabels,
+            datasets: lineChartDatasets
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { position: 'top' }
+            },
+            scales: {
+              y: { beginAtZero: true }
+            }
+          }
+        });
+
+        // Pie Chart – Grade Distribution
+        const pieCtx = document.getElementById('pieChart').getContext('2d');
+        const pieChart = new Chart(pieCtx, {
+          type: 'pie',
+          data: {
+            labels: {{ grade_labels | tojson }},
+            datasets: [{
+              data: {{ grade_counts | tojson }},
+              backgroundColor: ['#4CAF50', '#2196F3', '#FFC107', '#FF9800', '#F44336']
+            }]
+          },
+          options: {
+            responsive: false,
+            maintainAspectRatio: false,
+            width: 600,
+            height: 600
+          }
+        });
+
+        // Download Chart
+        function downloadChart() {
+          const a = document.createElement('a');
+          a.href = unitChart.toBase64Image();
+          a.download = 'average_scores_chart.png';
+          a.click();
+
+        }
+        function downloadLineChart() {
+          const a = document.createElement('a');
+          a.href = lineChart.toBase64Image();
+          a.download = 'score_trends_chart.png';
+          a.click();
+        }
+        function downloadPieChart() {
+          const a = document.createElement('a');
+          a.href = pieChart.toBase64Image();
+          a.download = 'grade_distribution_chart.png';
+          a.click();
+        }
+      </script>
+
+  </div>
+</body>
+</html>

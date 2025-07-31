@@ -1,0 +1,129 @@
+reg_no,name,unit,score
+S1000,Edith Wanjiru,Data Mining,90
+S1000,Edith Wanjiru,AI,76
+S1000,Edith Wanjiru,Networking,67
+S1000,Edith Wanjiru,DBMS,88
+S1000,Edith Wanjiru,Python,78
+S1000,Edith Wanjiru,PHP,70
+S1000,Edith Wanjiru,Attendance,75
+S1000,Edith Wanjiru,GPA,3
+S1001,Grace Wanjiku,Data Mining,87
+S1001,Grace Wanjiku,AI,78
+S1001,Grace Wanjiku,Networking,67
+S1001,Grace Wanjiku,DBMS,86
+S1001,Grace Wanjiku,Python,56
+S1001,Grace Wanjiku,PHP,68
+S1001,Grace Wanjiku,Attendance,72
+S1001,Grace Wanjiku,GPA,2.6
+S1003,Mary Maina,Data Mining,67
+S1003,Mary Maina,AI,56
+S1003,Mary Maina,Networking,76
+S1003,Mary Maina,DBMS,87
+S1003,Mary Maina,Python,95
+S1003,Mary Maina,PHP,65
+S1003,Mary Maina,Attendance,58
+S1003,Mary Maina,GPA,2.1
+S1004,Chantal Wanjiku,Data Mining,76
+S1004,Chantal Wanjiku,AI,67
+S1004,Chantal Wanjiku,Networking,87
+S1004,Chantal Wanjiku,DBMS,75
+S1004,Chantal Wanjiku,Python,56
+S1004,Chantal Wanjiku,PHP,74
+S1004,Chantal Wanjiku,Attendance,85
+S1004,Chantal Wanjiku,GPA,2.4
+S1005,Florence Wanjiru,Data Mining,56
+S1005,Florence Wanjiru,AI,65
+S1005,Florence Wanjiru,Networking,94
+S1005,Florence Wanjiru,DBMS,67
+S1005,Florence Wanjiru,Python,76
+S1005,Florence Wanjiru,PHP,80
+S1005,Florence Wanjiru,Attendance,60
+S1005,Florence Wanjiru,GPA,2.1
+S1006,Maina Mellisa,Data Mining,65
+S1006,Maina Mellisa,AI,76
+S1006,Maina Mellisa,Networking,56
+S1006,Maina Mellisa,DBMS,87
+S1006,Maina Mellisa,Python,74
+S1006,Maina Mellisa,PHP,60
+S1006,Maina Mellisa,Attendance,70
+S1006,Maina Mellisa,GPA,2.1
+S1008,Rashmi Patel,Data Mining,55
+S1008,Rashmi Patel,AI,65
+S1008,Rashmi Patel,Networking,76
+S1008,Rashmi Patel,DBMS,85
+S1008,Rashmi Patel,Python,72
+S1008,Rashmi Patel,PHP,59
+S1008,Rashmi Patel,Attendance,76
+S1008,Rashmi Patel,GPA,2.1
+S1009,Emily Wanjiku,Data Mining,78
+S1009,Emily Wanjiku,AI,56
+S1009,Emily Wanjiku,Networking,86
+S1009,Emily Wanjiku,DBMS,97
+S1009,Emily Wanjiku,Python,84
+S1009,Emily Wanjiku,PHP,76
+S1009,Emily Wanjiku,Attendance,68
+S1009,Emily Wanjiku,GPA,2.9
+S1011,Michael Joseph,Data Mining,55
+S1011,Michael Joseph,AI,76
+S1011,Michael Joseph,Networking,87
+S1011,Michael Joseph,DBMS,65
+S1011,Michael Joseph,Python,55
+S1011,Michael Joseph,PHP,45
+S1011,Michael Joseph,Attendance,65
+S1011,Michael Joseph,GPA,1.3
+S1012,Joseph Irungu,Data Mining,98
+S1012,Joseph Irungu,AI,89
+S1012,Joseph Irungu,Networking,87
+S1012,Joseph Irungu,DBMS,65
+S1012,Joseph Irungu,Python,76
+S1012,Joseph Irungu,PHP,72
+S1012,Joseph Irungu,Attendance,80
+S1012,Joseph Irungu,GPA,3
+S1013,Grace Kababura,Data Mining,80
+S1013,Grace Kababura,AI,78
+S1013,Grace Kababura,Networking,67
+S1013,Grace Kababura,DBMS,75
+S1013,Grace Kababura,Python,82
+S1013,Grace Kababura,PHP,72
+S1013,Grace Kababura,Attendance,65
+S1013,Grace Kababura,GPA,2.7
+S1014,Moses Maina,Data Mining,72
+S1014,Moses Maina,AI,80
+S1014,Moses Maina,Networking,98
+S1014,Moses Maina,DBMS,75
+S1014,Moses Maina,Python,57
+S1014,Moses Maina,PHP,87
+S1014,Moses Maina,Attendance,85
+S1014,Moses Maina,GPA,3
+S1015,Mary Muthoni,Data Mining,58
+S1015,Mary Muthoni,AI,85
+S1015,Mary Muthoni,Networking,76
+S1015,Mary Muthoni,DBMS,56
+S1015,Mary Muthoni,Python,81
+S1015,Mary Muthoni,PHP,60
+S1015,Mary Muthoni,Attendance,50
+S1015,Mary Muthoni,GPA,2
+S1016,Maxmillan Kababura,Data Mining,75
+S1016,Maxmillan Kababura,AI,57
+S1016,Maxmillan Kababura,Networking,85
+S1016,Maxmillan Kababura,DBMS,75
+S1016,Maxmillan Kababura,Python,60
+S1016,Maxmillan Kababura,PHP,78
+S1016,Maxmillan Kababura,Attendance,56
+S1016,Maxmillan Kababura,GPA,2
+S1017,Vanessa Mutheu,Data Mining,57
+S1017,Vanessa Mutheu,AI,75
+S1017,Vanessa Mutheu,Networking,56
+S1017,Vanessa Mutheu,DBMS,87
+S1017,Vanessa Mutheu,Python,76
+S1017,Vanessa Mutheu,PHP,65
+S1017,Vanessa Mutheu,Attendance,74
+S1017,Vanessa Mutheu,GPA,2.1
+S1018,Natasha Maina,Data Mining,88
+S1018,Natasha Maina,AI,77
+S1018,Natasha Maina,Networking,65
+S1018,Natasha Maina,DBMS,55
+S1018,Natasha Maina,Python,89
+S1018,Natasha Maina,PHP,90
+S1018,Natasha Maina,Attendance,60
+S1018,Natasha Maina,GPA,3.1

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body { background-color: #e0f7fa; }
+    .navbar { background-color: #00695c; }
+    .navbar a, .navbar-brand, .nav-link { color: white !important; }
+    h2 { color: #004d40; margin-top: 20px; }
+    .table thead { background-color: #00796b; color: white; }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="#">Student Dashboard</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a class="nav-link" href="/student">My Results</a></li>
+        <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    <h2>Welcome, {{ student_name }}</h2>
+    <a href="{{ url_for('download_results') }}" class="btn btn-outline-success mt-3">
+    <i class="fas fa-file-download"></i> Download Results
+    </a>
+
+    {% if results %}
+    <table class="table table-bordered table-striped mt-3">
+      <thead>
+        <tr>
+          <th>Unit</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in results %}
+        <tr>
+          <td>{{ row.unit }}</td>
+          <td>{{ row.score }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <p>No results found.</p>
+    {% endif %}
+  </div>
+</body>
+</html>
