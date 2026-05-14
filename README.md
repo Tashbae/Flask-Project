@@ -114,4 +114,4 @@ This project serves as:
 * A practical educational analytics solution
 * A predictive support system for institutions
 
-# 🌟**"Transforming academic data into actionable student success insights."🌟**
+# 🌟Transforming academic data into actionable student success insights.🌟
